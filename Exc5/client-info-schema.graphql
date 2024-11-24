@@ -1,0 +1,56 @@
+# Query - точка входа для запросов
+type Query {
+  # Получить информацию о клиенте по ID
+  client(id: ID!): Client
+
+  # Получить список клиентов с возможностью фильтрации
+  clients(filter: ClientFilter): [Client]
+}
+
+# Client - структура, представляющая клиента
+type Client {
+  id: ID!
+  name: String
+  age: Int
+  documents: [Document]
+  relatives: [Relative]
+}
+
+# Document - структура, представляющая документы клиента
+type Document {
+  id: ID!
+  type: String
+  number: String
+  issueDate: String
+  expiryDate: String
+}
+
+# Relative - структура, представляющая родственников клиента
+type Relative {
+  id: ID!
+  relationType: String
+  name: String
+  age: Int
+}
+
+# ClientFilter - фильтр для поиска клиентов по определённым критериям
+input ClientFilter {
+  name: String
+  age: Int
+}
+
+# Пример запроса клиента с документами и родственниками:
+# query {
+#   client(id: "12345") {
+#     id
+#     name
+#     documents {
+#       type
+#       number
+#     }
+#     relatives {
+#       name
+#       relationType
+#     }
+#   }
+# }
